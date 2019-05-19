@@ -15,7 +15,7 @@ app.use(logger('dev')) ;
   cron.schedule("* * * * *", function() {
     const date = Date.now();
     const now = new Date(date);
-    fetch(`https://54cc3ee84166aa643c5ac56f0e695464:b6605f729aab0a2fd351eeb1793484c6@untuckit.myshopify.com/admin/api/2019-04/orders.json?updated_at_min=${now}`)
+    fetch(`https://54cc3ee84166aa643c5ac56f0e695464:b6605f729aab0a2fd351eeb1793484c6@untuckit.myshopify.com/admin/api/2019-04/orders.json?created_at_min=${now}`)
       .then(response => response.json())
       .then(data => {
         console.log(data.orders);
