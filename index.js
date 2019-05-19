@@ -7,16 +7,24 @@ const routes = require('./routes/mainRoutes');
 const path = require('path');
 const bodyParser = require('body-parser');
 const key = process.env.API_KEY;
+const cron = require('node-cron');
 
-//Configure view engine to render EJS templates
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'ejs');
 
-// app.use(express.static(__dirname + '/public'));
 app.use(logger('dev')) ;
 
+  cron.schedule("* * * * *", function() {
+    const date = Date.now();
+    const now = new Date(date);
+    fetch(`https://54cc3ee84166aa643c5ac56f0e695464:b6605f729aab0a2fd351eeb1793484c6@untuckit.myshopify.com/admin/api/2019-04/orders.json?updated_at_min=${now}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.orders);
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
-
+  });
 
 
 app.use('/', routes)
