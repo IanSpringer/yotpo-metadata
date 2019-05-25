@@ -8,23 +8,40 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const key = process.env.API_KEY;
 const cron = require('node-cron');
+const graphql = require('graphql');
+
+
 
 
 app.use(logger('dev')) ;
 
-  cron.schedule("* * * * *", function() {
-    const date = Date.now();
-    const now = new Date(date);
-    fetch(`https://54cc3ee84166aa643c5ac56f0e695464:b6605f729aab0a2fd351eeb1793484c6@untuckit.myshopify.com/admin/api/2019-04/orders.json?created_at_min=${now}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.orders);
-      })
-      .catch(err => {
-        console.log(err)
-      })
 
-  });
+const query = `
+{
+  shop {
+    name
+    primaryDomain {
+      url
+      host
+    }
+  }
+}
+`;
+
+
+fetch('https://untuckit.myshopify.com/api/graphql', {
+  method: 'POST',
+  body: query,
+  headers: {
+    'Content-Type': 'application/graphql',
+    'X-Shopify-Storefront-Access-Token': '8f2a0e5f3dcdd370eda00da08c727aa0'
+  }
+})
+.then(res => res.json())
+.then(res => console.log(res.data))
+.catch(error => console.log(error))
+
+
 
 
 app.use('/', routes)
