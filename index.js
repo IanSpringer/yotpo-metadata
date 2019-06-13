@@ -1,6 +1,5 @@
 require('dotenv').load();
 const express = require('express');
-const session = require('express-session');
 const app = express();
 const router = express.Router();
 const path = require('path');
@@ -19,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use('/orders', orderRoutes);
 
 const request = async () => {
+	const checkDB = await fetch('http://localhost:3000/orders') ;
+	const db = await checkDB.json();
 	const orderData = await fetch(`https://${key}:${password}@${store}/admin/api/2019-04/orders.json`);
 	const orderJSON = await orderData.json();
 	const postData = await orderJSON.orders[orderJSON.orders.length - 1];
@@ -38,6 +39,9 @@ const request = async () => {
 }
 
 request()
+
+
+
 
 app.listen(port, () => console.log("Listening on port 3000"));
 
