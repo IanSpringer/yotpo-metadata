@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-	data: Object,
-	timestamp: String,
-	fullfilled: Boolean
+	orderSample: String
 }) ;
 
 const Order = mongoose.model('Order', orderSchema);
