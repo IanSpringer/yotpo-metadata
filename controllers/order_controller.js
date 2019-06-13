@@ -3,10 +3,8 @@ const controller = {};
 
 controller.create = (req, res) => {
 	const order = new Order({
-		orderSample: req.body.email
+		orderTime: req.body.email
 	})
-
-	console.log(order)
 
 	order.save(err => {
 		if(err) throw err;
@@ -15,11 +13,17 @@ controller.create = (req, res) => {
 }
 
 controller.index = (req, res) => {
-	Order.find({}, function(err, orders) {
+	Order.find({}, (err, orders) => {
 		if(err) throw err;
-		console.log('the order', orders);
+
 		res.json(orders);
 	})
 }
 
+controller.destroy = (req, res) => {
+	Order.remove({}, (err, orders) => {
+		if(err) throw err;
+		res.json(orders);
+	})
+}
 module.exports = controller;

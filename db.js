@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb');
+const MongoClient = require('mongoose');
 
 const mongo_uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/yotpo-metadata' ;
 

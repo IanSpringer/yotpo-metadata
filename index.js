@@ -8,7 +8,7 @@ const key = process.env.SHOPIFY_USERNAME;
 const password = process.env.SHOPIFY_PASSWORD;
 const store = process.env.SHOPIFY_STORE_URL;
 const mongoose = require('mongoose');
-const orderRoutes = require('./routes/orderRoutes.js')
+const orderRoutes = require('./routes/orderRoutes.js');
 const db = require('./db.js');
 const port = process.env.PORT || 3000;
 const fetch = require('node-fetch');
@@ -21,7 +21,8 @@ app.use('/orders', orderRoutes);
 const request = async () => {
 	const orderData = await fetch(`https://${key}:${password}@${store}/admin/api/2019-04/orders.json`);
 	const orderJSON = await orderData.json();
-	const postData = await orderJSON.orders[orderJSON.orders.length - 1] ;
+	const postData = await orderJSON.orders[orderJSON.orders.length - 1];
+
 	const postOrders = await fetch('http://localhost:3000/orders', {
 		method: 'POST',
 		mode: 'cors',

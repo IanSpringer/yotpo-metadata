@@ -7,4 +7,7 @@ router.route('/')
 	.get(orderController.index)
 	.post(orderController.create)
 
+router.route('/destroy')
+	.get(orderController.destroy)
+
 module.exports = router;
